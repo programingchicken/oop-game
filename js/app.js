@@ -24,7 +24,7 @@ const game = new Game(phrase)//new game object
 
 const startButton = document.getElementById('btn__reset');
 const letter = document.getElementById('qwerty');
-game.randomQuotes()
+phrase.addPhraseToDisplay(game.randomNumber())
 game.loadQuote()
 let newQuote;
 
@@ -52,8 +52,8 @@ startButton.addEventListener('click', (e) => {
 letter.addEventListener('click', (e) => {
     const letter = e.target;
     if (letter.tagName === 'BUTTON') {
-        if (button.className !== 'wrong' && letter.className !== 'chosen') {
-            game.handleInteraction(button)
+        if (letter.className !== 'wrong' && letter.className !== 'chosen') {
+            game.handleInteraction(letter)
         } else {
             console.log('used')
         }
