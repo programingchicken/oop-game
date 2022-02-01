@@ -70,8 +70,10 @@ class Game {
         if ( phrase.checkLetter(button) ) {
             button.className = 'chosen'
             this.checkForWin(this.activePhrase)
+            button.disable = true;
         }else {
             button.className = 'wrong'
+            button.disable = true;
             this.removeLife()
         }
     }
@@ -139,10 +141,12 @@ class Game {
             const wrong = document.querySelectorAll('.wrong')
             wrong.forEach(element => {
                 element.className = 'key'
+                element.disable = false;
             });
             const chosen = document.querySelectorAll('.chosen')
             chosen.forEach(element => {
                 element.className = 'key'
+                element.disable = false;
             });
 
             //won
