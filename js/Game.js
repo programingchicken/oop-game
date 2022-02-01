@@ -25,6 +25,28 @@ class Game {
             console.log(`Phrase ${index +1} - phrase: ${item}`);
         });
     }
+
+        //adds phrase to display
+        addPhraseToDisplay(randomQuoteNumber) {
+            console.log(randomQuoteNumber)
+            const newArrays = Object.assign([], randomQuoteNumber)
+            newArrays.forEach((element) => {
+                const letter = element
+                const li = document.createElement('li');
+                //hids letter and spaces
+                if (letter === " ") {
+                    li.className = `hide space`
+                    li.textContent = " ";
+    
+                    //letters
+                } else {
+                    li.className = `hide letter ${letter}`
+                }
+    
+                const phraseDiv = document.getElementById('phrase');
+                insertLast(phraseDiv, li)
+            });
+        }
     
     //returns the random phrase
     getRandomPhrase() {

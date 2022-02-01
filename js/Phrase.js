@@ -14,28 +14,6 @@ class Phrase {
         this.phrases = phrase.map(quote => quote.toLowerCase());
     }
 
-    //adds phrase to display
-    addPhraseToDisplay(randomQuoteNumber) {
-        console.log(randomQuoteNumber)
-        const newArray = Object.assign([], randomQuoteNumber)
-        newArray.forEach((element) => {
-            const letter = element
-            const li = document.createElement('li');
-            //hids letter and spaces
-            if (letter === " ") {
-                li.className = `hide space`
-                li.textContent = " ";
-
-                //letters
-            } else {
-                li.className = `hide letter ${letter}`
-            }
-
-            const phraseDiv = document.getElementById('phrase');
-            insertLast(phraseDiv, li)
-        });
-    }
-
     //checks if letter is correct or not correct
     checkLetter(button) {
         if (game.activePhrase.includes(button.textContent.toLowerCase())) {

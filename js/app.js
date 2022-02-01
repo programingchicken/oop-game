@@ -24,7 +24,7 @@ const game = new Game(phrase)//new game object
 
 const startButton = document.getElementById('btn__reset');
 const letter = document.getElementById('qwerty');
-phrase.addPhraseToDisplay(game.randomNumber())
+game.addPhraseToDisplay(game.randomNumber())
 game.loadQuote()
 let newQuote;
 
@@ -41,7 +41,7 @@ startButton.addEventListener('click', (e) => {
     //runs getRandomPhrase from the new game class
     newQuote = game.getRandomPhrase()
     //runs addPhraseToDisplay from phrase class
-    phrase.addPhraseToDisplay(newQuote)
+    game.addPhraseToDisplay(newQuote)
     //start game
     game.startGame(newQuote)
     console.log(game.activePhrase)
