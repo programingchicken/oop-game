@@ -17,16 +17,18 @@ const phrases = [
 
 
 let active = 0;
+let phrase = new Phrase(phrases)//new phrase object
+let game = new Game(phrase)//new game object
 
-
-const phrase = new Phrase(phrases)//new phrase object
-const game = new Game(phrase)//new game object
+// const phrase = new Phrase(phrases)//new phrase object
+// const game = new Game(phrase)//new game object
 
 const startButton = document.getElementById('btn__reset');
 const letter = document.getElementById('qwerty');
-game.addPhraseToDisplay(game.randomNumber())
-game.loadQuote()
-let newQuote;
+const body = document.getElementById('body')
+// phrase.addPhraseToDisplay(game.randomNumber())
+// game.loadQuote()
+
 
 //HTML elements
 const scoreboard = document.getElementById('hearts')
@@ -35,27 +37,37 @@ const fullLiid = document.getElementById('phrase')
 
 
 //Starts the game.
-startButton.addEventListener('click', (e) => {
+body.addEventListener('click', (e) => {
+
+
 
     const button = e.target
-    //runs getRandomPhrase from the new game class
-    newQuote = game.getRandomPhrase()
-    //runs addPhraseToDisplay from phrase class
-    game.addPhraseToDisplay(newQuote)
-    //start game
-    game.startGame(newQuote)
-    console.log(game.activePhrase)
-})   
+    if (button.id === 'btn__reset') {
+        phrase = new Phrase(phrases)//new phrase object
+        game = new Game(phrase)//new game object
+        //runs getRandomPhrase from the new game class
+        //runs addPhraseToDisplay from phrase class
+        // phrase.addPhraseToDisplay(game.randomNumber())
+        game.randomNumber()
+        game.loadQuote()
+        let newQuote = game.getRandomPhrase()
+        phrase.addPhraseToDisplay(newQuote)
+        //start game
+        game.startGame(newQuote)
+        console.log(game.activePhrase)
+    }
 
-
-//event listener checks if you are wrong or if the letter is used
-letter.addEventListener('click', (e) => {
-    const letter = e.target;
-    if (letter.tagName === 'BUTTON') {
-        if (letter.className !== 'wrong' && letter.className !== 'chosen') {
-            game.handleInteraction(letter)
+    //event listener checks if you are wrong or if the letter is used
+    if (button.className === 'key') {
+        if (button.className !== 'wrong' && button.className !== 'chosen') {
+            game.handleInteraction(button)
         } else {
             console.log('used')
         }
     }
+
+
+
+
 });
+

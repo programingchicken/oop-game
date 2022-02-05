@@ -2,7 +2,7 @@
  * Project 4 - OOP Game App
  * Game.js */
 class Game {
-    constructor(phrase) { 
+    constructor(phrase) {
         this.newArray = [];
         this.missed = 0;
         this.phrases = phrase;
@@ -12,42 +12,22 @@ class Game {
 
     //Random Number
     randomNumber() {
-      for (let i=0; i < 5; i++) {
-        const randomNumber = Math.floor(Math.random() * this.phrases.phrases.length);
-        this.newArray.push( this.phrases.phrases[randomNumber]);
-            this.phrases.phrases.splice(randomNumber,1)
-       }
+        for (let i = 0; i < 5; i++) {
+            const randomNumber = Math.floor(Math.random() * this.phrases.phrases.length);
+            this.newArray.push(this.phrases.phrases[randomNumber]);
+            this.phrases.phrases.splice(randomNumber, 1)
+        }
     }
 
     //gets the quote and logs it out
     loadQuote() {
         this.newArray.forEach((item, index) => {
-            console.log(`Phrase ${index +1} - phrase: ${item}`);
+            console.log(`Phrase ${index + 1} - phrase: ${item}`);
         });
     }
 
-        //adds phrase to display
-        addPhraseToDisplay(randomQuoteNumber) {
-            console.log(randomQuoteNumber)
-            const newArrays = Object.assign([], randomQuoteNumber)
-            newArrays.forEach((element) => {
-                const letter = element
-                const li = document.createElement('li');
-                //hids letter and spaces
-                if (letter === " ") {
-                    li.className = `hide space`
-                    li.textContent = " ";
-    
-                    //letters
-                } else {
-                    li.className = `hide letter ${letter}`
-                }
-    
-                const phraseDiv = document.getElementById('phrase');
-                insertLast(phraseDiv, li)
-            });
-        }
-    
+
+
     //returns the random phrase
     getRandomPhrase() {
         const randomNumber = Math.floor(Math.random() * this.newArray.length);
@@ -57,7 +37,7 @@ class Game {
         console.log(this.newArray)
         return newPhrase;
     }
-    
+
     //starts the game up and sets the overlay display to none
     startGame(active) {
         const overlay = document.getElementById('overlay');
@@ -67,36 +47,45 @@ class Game {
 
     //checks if the chosen iteraction is wrong, right, used, or a win
     handleInteraction(button) {
-        if ( phrase.checkLetter(button) ) {
+        if (phrase.checkLetter(button)) {
             button.className = 'chosen'
-            this.checkForWin(this.activePhrase)
+            this.runGameOver(this.checkForWin(this.activePhrase))
             button.disable = true;
-        }else {
+        } else {
             button.className = 'wrong'
             button.disable = true;
             this.removeLife()
         }
     }
 
+    //check if check for win is true/false
+    runGameOver(TF) {
+        if (TF) {
+            console.log('you win')
+            this.gameOver("[Good Job, That's The Right Phrase.]")
+        } else {
+            console.log('correct')
+        }
+    }
+
     //Checks if you have correctly gussed the phrase; for a win.
     checkForWin(active) {
         let lis = []
-        let activeList =[]
+        let activeList = []
         //creates a list of active letters
         for (let i = 0; i < fullLi.length; i++) {
-                lis.push(fullLi[i].textContent)
-                activeList.push(active[i])
-                console.log(lis)
+            lis.push(fullLi[i].textContent)
+            activeList.push(active[i])
+            console.log(lis)
         }
         //checks if you won
-      if(lis.toString() === activeList.toString()) {
-        console.log('you win')
-        this.gameOver("[Good Job, That's The Right Phrase.]")
-      } 
-      //else it is just correct
-      else {
-        console.log('correct')
-      }
+        if (lis.toString() === activeList.toString()) {
+            return true
+        }
+        //else it is just correct
+        else {
+            return false
+        }
     }
 
     //remove a life from the players lifes
@@ -110,8 +99,8 @@ class Game {
             this.gameOver("[Better Luck Next Time, That's The Wrong Phrase.]")
 
 
+        }
     }
-}
 
     //game over function
     gameOver(word) {
@@ -123,18 +112,18 @@ class Game {
         //throws away 
         for (let i = 0; i < this.activePhrase.length; i++) {
             let garbage = fullLiid.removeChild(fullLiid.firstChild)
-            }
-            for ( let i = 0; i < scoreboard.children.length;) {
-                //throws away extra hearts to
-               let garbage = scoreboard.removeChild(scoreboard.children[i])
-            }
-                //adds the new hearts back in for next game
-               for (let i = 5; i > scoreboard.children.length ;) {
-             scoreboard.insertAdjacentHTML('afterbegin', '<li class="tries"><img src="images/liveHeart.png" alt="Heart Icon" height="35" width="30"></li>')
+        }
+        for (let i = 0; i < scoreboard.children.length;) {
+            //throws away extra hearts to
+            let garbage = scoreboard.removeChild(scoreboard.children[i])
+        }
+        //adds the new hearts back in for next game
+        for (let i = 5; i > scoreboard.children.length;) {
+            scoreboard.insertAdjacentHTML('afterbegin', '<li class="tries"><img src="images/liveHeart.png" alt="Heart Icon" height="35" width="30"></li>')
         }
         //checks if the text was "Better Luck Next Time, That's The Wrong Phrase." to see if you lost or if you won 
         if ("[Better Luck Next Time, That's The Wrong Phrase.]" === word) {
-            
+
             //lost
             gameOverMessage.textContent = word;
             gameOverMessage.parentNode.className = 'lose'
