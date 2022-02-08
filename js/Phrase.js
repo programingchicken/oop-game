@@ -27,7 +27,7 @@ class Phrase {
     //adds phrase to display
     addPhraseToDisplay(randomQuoteNumber) {
         console.log(randomQuoteNumber)
-        const newArrays = Object.assign([], randomQuoteNumber)
+        const newArrays = Object.assign([], randomQuoteNumber.toLowerCase())
         newArrays.forEach((element) => {
             const letter = element
             const li = document.createElement('li');
@@ -44,6 +44,7 @@ class Phrase {
             const phraseDiv = document.getElementById('phrase');
             insertLast(phraseDiv, li)
         });
+        return newArrays;
     }
 
     //shows the letter fuction

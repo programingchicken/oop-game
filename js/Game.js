@@ -4,19 +4,22 @@
 class Game {
     constructor() {
         this.missed = 0;
-        this.phrases = [] ;
+        //Phrases for the Game
+        this.phrases = [
+            'Life is like a box of chocolates',
+            'ab ca',
+            'bc db',
+            'cd ec',
+            'de fd',
+            'ef ge',
+            'fg hf',
+            'gh ig',
+            'hi  jh'
+        ];
         this.activePhrase = null;
 
     }
 
-    //Random Number
-    randomNumber(phrase) {
-        for (let i = 0; i < 5; i++) {
-            const randomNumber = Math.floor(Math.random() * phrase.length);
-            this.phrases.push(phrase[randomNumber]);
-            phrase.splice(randomNumber, 1)
-        }
-    }
 
     //gets the quote and logs it out
     loadQuote() {
@@ -41,15 +44,28 @@ class Game {
     startGame(active) {
         const overlay = document.getElementById('overlay');
         overlay.style.display = 'none';
-        this.activePhrase = active;
+        this.activePhrase = active.toLowerCase();
+        phrase.addPhraseToDisplay(active)
     }
 
     //checks if the chosen iteraction is wrong, right, used, or a win
     handleInteraction(button) {
         if (this.activePhrase.includes(button.textContent)) {
+            //this checkLetter() runs my showMatchedLetter()
+            phrase.checkLetter(button)
             button.className = 'chosen'
-            this.runGameOver(this.checkForWin(this.activePhrase))
             button.disable = true;
+            let lis = []
+            let activeList = []
+            //creates a list of active letters
+            // for (let i = 0; i < fullLi.length; i++) {
+            //     lis.push(fullLi[i].textContent)
+            //     activeList.push(this.activePhrase[i])
+            //     console.log(lis)
+            // }
+            if (this.checkForWin(this.activePhrase)) {
+                this.gameOver(this.checkForWin(this.activePhrase))
+            }
         } else {
             button.className = 'wrong'
             button.disable = true;
@@ -57,15 +73,15 @@ class Game {
         }
     }
 
-    //check if checkForWin is true/false
-    runGameOver(TF) {
-        if (TF) {
-            console.log('you win')
-            this.gameOver(this.checkForWin(this.activePhrase))
-        } else {
-            console.log('correct')
-        }
-    }
+    // //check if checkForWin is true/false
+    // runGameOver(TF) {
+    //     if (TF) {
+    //         console.log('you win')
+    //         this.gameOver(this.checkForWin(this.activePhrase))
+    //     } else {
+    //         console.log('correct')
+    //     }
+    // }
 
     //Checks if you have correctly gussed the phrase; for a win.
     checkForWin(active) {
@@ -90,8 +106,8 @@ class Game {
     //remove a life from the players lifes
     removeLife() {
         console.log('wrong')
-        scoreboard.removeChild(scoreboard.lastElementChild);
         this.missed++
+        scoreboard.children[this.missed - 1].firstChild.setAttribute('src', 'images/lostHeart.png');
         //checks if lifes are gone
         if (this.missed === 5) {
             //runs this gameOver function
@@ -138,7 +154,7 @@ class Game {
             });
 
             //won
-        } else {
+        } else if (word === true) {
             gameOverMessage.textContent = "[Good Job, That's The Right Phrase.]";
             gameOverMessage.parentNode.className = 'win'
             const wrong = document.querySelectorAll('.wrong')
@@ -149,6 +165,8 @@ class Game {
             chosen.forEach(element => {
                 element.className = 'key'
             });
+        } else {
+            console.log('did not win or lose')
         }
     }
 } 

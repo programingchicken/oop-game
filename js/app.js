@@ -2,19 +2,6 @@
  * Project 4 - OOP Game App
  * app.js */
 
-//Phrases for the Game
-const phrases = [
-    'Life is like a box of chocolates',
-    'ab ca',
-    'bc db',
-    'cd ec',
-    'de fd',
-    'ef ge',
-    'fg hf',
-    'gh ig',
-    'hi  jh'
-];
-
 
 let active;
 // let phrase = new Phrase(phrases)//new phrase object
@@ -45,15 +32,14 @@ body.addEventListener('click', (e) => {
 
     const button = e.target
     if (button.id === 'btn__reset') {
-        phrase = new Phrase(phrases)//new phrase object
-        game = new Game()//new game object
+        game = new Game()
+        phrase = new Phrase(game.phrases)//new phrase object
+//new game object
         //runs getRandomPhrase from the new game class
         //runs addPhraseToDisplay from phrase class
         // phrase.addPhraseToDisplay(game.randomNumber())
-        game.randomNumber(phrase.phrases)
         game.loadQuote()
         let newQuote = game.getRandomPhrase()
-        phrase.addPhraseToDisplay(newQuote)
         //start game
         game.startGame(newQuote)
         console.log(game.activePhrase)
@@ -62,7 +48,6 @@ body.addEventListener('click', (e) => {
     //event listener checks if you are wrong or if the letter is used
     if (button.className === 'key') {
         if (button.className !== 'wrong' && button.className !== 'chosen') {
-            phrase.checkLetter(button)
             game.handleInteraction(button)
         } else {
             console.log('used')
