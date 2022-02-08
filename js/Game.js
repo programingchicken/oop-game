@@ -45,14 +45,6 @@ class Game {
             phrase.checkLetter(button)
             button.className = 'chosen'
             button.disable = true;
-            let lis = []
-            let activeList = []
-            //creates a list of active letters
-            // for (let i = 0; i < fullLi.length; i++) {
-            //     lis.push(fullLi[i].textContent)
-            //     activeList.push(this.activePhrase[i])
-            //     console.log(lis)
-            // }
             if (this.checkForWin(this.activePhrase)) {
                 this.gameOver(this.checkForWin(this.activePhrase))
             }
