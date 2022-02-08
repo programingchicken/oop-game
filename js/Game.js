@@ -5,17 +5,7 @@ class Game {
     constructor() {
         this.missed = 0;
         //Phrases for the Game
-        this.phrases = [
-            'Life is like a box of chocolates',
-            'ab ca',
-            'bc db',
-            'cd ec',
-            'de fd',
-            'ef ge',
-            'fg hf',
-            'gh ig',
-            'hi  jh'
-        ];
+        this.phrases = phrase.phrases
         this.activePhrase = null;
 
     }
@@ -99,6 +89,7 @@ class Game {
         }
         //else it is just correct
         else {
+            console.log('correct')
             return false
         }
     }

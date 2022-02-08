@@ -1,7 +1,17 @@
 /* Treehouse FSJS Techdegree
  * Project 4 - OOP Game App
  * app.js */
-
+const phrases = [
+    'Life is like a box of chocolates',
+    'ab ca',
+    'bc db',
+    'cd ec',
+    'de fd',
+    'ef ge',
+    'fg hf',
+    'gh ig',
+    'hi  jh'
+];
 
 let active;
 // let phrase = new Phrase(phrases)//new phrase object
@@ -32,9 +42,9 @@ body.addEventListener('click', (e) => {
 
     const button = e.target
     if (button.id === 'btn__reset') {
-        game = new Game()
-        phrase = new Phrase(game.phrases)//new phrase object
-//new game object
+
+        phrase = new Phrase(phrases)//new phrase object
+        game = new Game()//new game object
         //runs getRandomPhrase from the new game class
         //runs addPhraseToDisplay from phrase class
         // phrase.addPhraseToDisplay(game.randomNumber())
