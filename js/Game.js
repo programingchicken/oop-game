@@ -2,26 +2,25 @@
  * Project 4 - OOP Game App
  * Game.js */
 class Game {
-    constructor(phrase) {
-        this.newArray = [];
+    constructor() {
         this.missed = 0;
-        this.phrases = phrase;
+        this.phrases = [] ;
         this.activePhrase = null;
 
     }
 
     //Random Number
-    randomNumber() {
+    randomNumber(phrase) {
         for (let i = 0; i < 5; i++) {
-            const randomNumber = Math.floor(Math.random() * this.phrases.phrases.length);
-            this.newArray.push(this.phrases.phrases[randomNumber]);
-            this.phrases.phrases.splice(randomNumber, 1)
+            const randomNumber = Math.floor(Math.random() * phrase.length);
+            this.phrases.push(phrase[randomNumber]);
+            phrase.splice(randomNumber, 1)
         }
     }
 
     //gets the quote and logs it out
     loadQuote() {
-        this.newArray.forEach((item, index) => {
+        this.phrases.forEach((item, index) => {
             console.log(`Phrase ${index + 1} - phrase: ${item}`);
         });
     }
@@ -30,11 +29,11 @@ class Game {
 
     //returns the random phrase
     getRandomPhrase() {
-        const randomNumber = Math.floor(Math.random() * this.newArray.length);
-        const newPhrase = this.newArray[randomNumber];
-        console.log(`Random Phrase ${randomNumber + 1} - phrase: ${this.newArray[randomNumber]}`);
-        // this.newArray.splice(randomNumber,1)
-        console.log(this.newArray)
+        const randomNumber = Math.floor(Math.random() * this.phrases.length);
+        const newPhrase = this.phrases[randomNumber];
+        console.log(`Random Phrase ${randomNumber + 1} - phrase: ${this.phrases[randomNumber]}`);
+        // this.phrases.splice(randomNumber,1)
+        console.log(this.phrases)
         return newPhrase;
     }
 
@@ -47,7 +46,7 @@ class Game {
 
     //checks if the chosen iteraction is wrong, right, used, or a win
     handleInteraction(button) {
-        if (phrase.checkLetter(button)) {
+        if (this.activePhrase.includes(button.textContent)) {
             button.className = 'chosen'
             this.runGameOver(this.checkForWin(this.activePhrase))
             button.disable = true;
@@ -58,11 +57,11 @@ class Game {
         }
     }
 
-    //check if check for win is true/false
+    //check if checkForWin is true/false
     runGameOver(TF) {
         if (TF) {
             console.log('you win')
-            this.gameOver("[Good Job, That's The Right Phrase.]")
+            this.gameOver(this.checkForWin(this.activePhrase))
         } else {
             console.log('correct')
         }
@@ -96,7 +95,7 @@ class Game {
         //checks if lifes are gone
         if (this.missed === 5) {
             //runs this gameOver function
-            this.gameOver("[Better Luck Next Time, That's The Wrong Phrase.]")
+            this.gameOver(this.checkForWin(this.activePhrase))
 
 
         }
@@ -122,10 +121,10 @@ class Game {
             scoreboard.insertAdjacentHTML('afterbegin', '<li class="tries"><img src="images/liveHeart.png" alt="Heart Icon" height="35" width="30"></li>')
         }
         //checks if the text was "Better Luck Next Time, That's The Wrong Phrase." to see if you lost or if you won 
-        if ("[Better Luck Next Time, That's The Wrong Phrase.]" === word) {
+        if (word === false) {
 
             //lost
-            gameOverMessage.textContent = word;
+            gameOverMessage.textContent = "[Better Luck Next Time, That's The Wrong Phrase.]";
             gameOverMessage.parentNode.className = 'lose'
             const wrong = document.querySelectorAll('.wrong')
             wrong.forEach(element => {
@@ -140,7 +139,7 @@ class Game {
 
             //won
         } else {
-            gameOverMessage.textContent = word;
+            gameOverMessage.textContent = "[Good Job, That's The Right Phrase.]";
             gameOverMessage.parentNode.className = 'win'
             const wrong = document.querySelectorAll('.wrong')
             wrong.forEach(element => {
